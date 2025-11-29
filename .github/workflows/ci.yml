@@ -29,5 +29,6 @@ jobs:
           pytest
 
       - name: Run FizzBuzz script
-        run: |
-          python -m fizzbuzz.fizzbuzz
+        env:
+          PYTHONPATH: src
+        run: python -m fizzbuzz.fizzbuzz
