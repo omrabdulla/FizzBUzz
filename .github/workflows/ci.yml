@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
 
     steps:
       - name: Checkout repository
@@ -29,6 +31,4 @@ jobs:
           pytest
 
       - name: Run FizzBuzz script
-        env:
-          PYTHONPATH: src
         run: python -m fizzbuzz.fizzbuzz
