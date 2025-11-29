@@ -1,3 +1,8 @@
+"""
+Core implementation of the FizzBuzz test.
+Separated into pure functions for clarity, testability, and reuse.
+"""
+
 from typing import List
 
 
@@ -45,7 +50,7 @@ def main() -> None:
     """
     Entry point: print the FizzBuzz sequence from 1 to 100 to stdout.
     """
-    for value in fizzbuzz_sequence(1, 100):
+    for value in fizzbuzz_sequence(1, 100):  
         print(value)
 
 

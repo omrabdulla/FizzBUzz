@@ -1,3 +1,8 @@
+"""
+Pytest suite covering core FizzBuzz logic.
+Includes parametrised tests and negative case.
+"""
+
 import os
 import sys
 
@@ -24,7 +29,7 @@ import pytest
         (30, "FizzBuzz"),
     ],
 )
-def test_fizzbuzz_value_basic_cases(n, expected):
+def test_fizzbuzz_value_basic_cases(n: int, expected: str) -> None:
     assert fizzbuzz_value(n) == expected
 
 
@@ -46,3 +51,6 @@ def test_fizzbuzz_sequence_custom_range():
 def test_fizzbuzz_sequence_invalid_range():
     with pytest.raises(ValueError):
         fizzbuzz_sequence(10, 1)
+
+def test_fizzbuzz_sequence_single_value():
+    assert fizzbuzz_sequence(5, 5) == ["Buzz"]
