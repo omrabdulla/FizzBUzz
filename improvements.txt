@@ -1,24 +1,23 @@
-Backlog Refinement – FizzBuzz Pipeline
+Backlog Refinement – FizzBuzz Pipeline (With Story Points)
 
-This document outlines the improvements and enhancements I would prioritise if the scope extended beyond the strict two-hour timebox. 
+This document outlines the improvements and enhancements I would prioritise if the scope extended beyond the two-hour timebox. 
 The goal is to evolve this simple FizzBuzz implementation into a production-ready, maintainable, and scalable service.
 
 ------------------------------------------------------------
 1. CI / DEVOPS ENHANCEMENTS
 ------------------------------------------------------------
 
-1.1 Add Linting and Formatting  
+1.1 Add Linting and Formatting  (5 SP)
     - Integrate ruff for linting (fast, modern linter)  
     - Integrate black for code formatting  
     - Run both tools locally via Makefile and in CI
 
-1.2 Multi-Environment CI Flow (dev → uat → prod)  
+1.2 Multi-Environment CI Flow (dev → uat → prod)  (8 SP)
     - Add GitHub Environments (dev, uat, prod)
     - Enforce environment protection rules
     - Separate automated dev runs from controlled uat/prod promotions
-    - Trigger deployments through release promotion rather than direct pushes
 
-1.3 Protected Deployment Approvals  
+1.3 Protected Deployment Approvals  (5 SP)
     - Require mandatory pull request approvals before merging to main
     - Enforce two approvals before deploying to UAT or PROD  
     - Ensure at least one approval comes from a designated high-privilege approvers group  
@@ -26,14 +25,12 @@ The goal is to evolve this simple FizzBuzz implementation into a production-read
     - Prevent direct commits or force pushes to main
     - Protects production deployments and aligns with real-world governance controls
 
-1.4 Release-Based Deployment  
+1.4 Release-Based Deployment  (5 SP)
     - Use GitHub Releases (e.g., v0.1.0) to trigger deployments
-    - Add semantic versioning (major.minor.patch)
-    - Deploy releases to UAT automatically
     - Require additional approval to promote to PROD
     - Ensures controlled, auditable deployment flow across environments
 
-1.5 Test Coverage in CI  
+1.5 Test Coverage in CI  (5 SP)
     - Integrate coverage.py or pytest --cov
     - Add minimum coverage thresholds (e.g., 90%)
     - Publish coverage reports as pipeline artifacts
@@ -43,7 +40,7 @@ The goal is to evolve this simple FizzBuzz implementation into a production-read
 2. APPLICATION & CODE IMPROVEMENTS
 ------------------------------------------------------------
 
-2.1 CLI Interface  
+2.1 CLI Interface  (5 SP)
     - Add argparse-based CLI  
       Examples:
         --start 1  
@@ -52,21 +49,21 @@ The goal is to evolve this simple FizzBuzz implementation into a production-read
         --output file.txt  
     - Makes the tool reusable and automatable in scripts/pipelines
 
-2.2 Proper Logging  
+2.2 Proper Logging  (3 SP)
     - Replace print() with Python’s logging module  
     - Add log levels (INFO, DEBUG, ERROR)  
     - Enable structured logging for future scaling
 
-2.3 Packaging  
-    - Add pyproject.toml 
-    - Make this installable via pip (e.g., pip install fizzbuzz)  
+2.3 Packaging (pyproject.toml)  (3 SP)
+    - Add pyproject.toml  
+    - Make this installable via pip (e.g., `pip install fizzbuzz`)  
     - Improves portability and reusability
 
-2.4 Streaming Version (Memory-Efficient)  
+2.4 Streaming Version (Memory-Efficient)  (5 SP)
     - Turn fizzbuzz_sequence into a generator  
     - Useful for extremely large ranges
 
-2.5 Type Checking  
+2.5 Type Checking (mypy)  (3 SP)
     - Introduce mypy for static type checking  
     - Enforce type hints across all modules  
     - Catch type errors during development  
@@ -76,62 +73,76 @@ The goal is to evolve this simple FizzBuzz implementation into a production-read
 3. TESTING ENHANCEMENTS
 ------------------------------------------------------------
 
-3.1 Add More Edge Cases  
+3.1 Add More Edge Cases  (3 SP)
     - Negative numbers  
     - Very large ranges  
     - start == end == special cases  
     - Input validation for non-integer types
 
-3.2 CLI-Level Tests  
+3.2 CLI-Level Tests  (5 SP)
     - Add CLI tests using pytest’s capsys  
     - Validate printed output for various argument combinations  
     - Ensures CLI behaviour is stable as project grows
 
 ------------------------------------------------------------
-4. REPOSITORY QUALITY & TOOLING
+4. REPOSITORY QUALITY, GOVERNANCE & TOOLING
 ------------------------------------------------------------
 
-4.1 Extend Makefile  
+4.1 Extend Makefile  (2 SP)
     - make format  
     - make typecheck  
     - make coverage  
     - make clean
 
-4.2 Add a CONTRIBUTING.md  
+4.2 Add a CONTRIBUTING.md  (3 SP)
     - Document coding style, branching strategy, and PR guidelines
 
-4.3 Add pre-commit Hooks  
+4.3 Add pre-commit Hooks  (3 SP)
     - Auto-linting and formatting before each commit  
     - Prevents style issues from ever reaching the repo
 
-4.4 Add GitHub Templates  
+4.4 Add GitHub Templates  (2 SP)
     - Issue templates  
     - Pull request templates  
     - Improves project collaboration standards
+
+4.5 Issue-Driven Change Tracking & Automation  (8 SP)
+    - Require that all changes are linked to a GitHub Issue  
+    - Use a GitHub Action to:
+        - Validate that each PR references an issue
+    - Capture key metadata in the issue:
+        - Reason for the work (feature, bugfix, refactor, optimisation, etc.)
+        - Who is implementing the change
+        - Who is responsible for UAT/sign-off
+        - Which environments have received the change (dev, uat, prod)
+        - Links to external artefacts:
+            - Scrum board / ticket IDs (e.g., Jira, Azure Boards)
+            - Change tickets for production deployments
+    - Enables full auditable traceability of changes
 
 ------------------------------------------------------------
 5. ARCHITECTURE EVOLUTION (IF THIS WAS PART OF A LARGER PIPELINE)
 ------------------------------------------------------------
 
-5.1 Add Optional Output Adapters  
+5.1 Add Optional Output Adapters  (3 SP)
     - JSON, CSV, plain text  
     - Write-to-file vs write-to-console  
     - Future integration with data pipelines
 
-5.2 Observability  
+5.2 Observability  (5 SP)
     - Add metrics (counts of Fizz, Buzz, FizzBuzz)  
     - Expose stats for monitoring or dashboards
 
-5.3 Extract Core Logic Into Its Own Module or Service  
-    - Move business logic to a dedicated core.py module  
-    - Keep CLI interactions in cli.py  
+5.3 Extract Core Logic Into Its Own Module or Service  (8 SP)
+    - Move business logic to a dedicated `core.py` module  
+    - Keep CLI interactions in `cli.py`  
     - Enables direct reuse in Airflow, Lambdas, or FastAPI/Flask services  
     - Encourages clean separation of concerns  
     - Supports future microservice or API-based expansion
 
 ------------------------------------------------------------
 
-All of these represent natural next steps to consider for production.
+All of these were deliberately excluded to fully respect the two-hour limit but represent natural next steps for production hardening.
 
 ------------------------------------------------------------
 END OF BACKLOG
