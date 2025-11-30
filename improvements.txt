@@ -1,0 +1,138 @@
+Backlog Refinement – FizzBuzz Pipeline
+
+This document outlines the improvements and enhancements I would prioritise if the scope extended beyond the strict two-hour timebox. 
+The goal is to evolve this simple FizzBuzz implementation into a production-ready, maintainable, and scalable service.
+
+------------------------------------------------------------
+1. CI / DEVOPS ENHANCEMENTS
+------------------------------------------------------------
+
+1.1 Add Linting and Formatting  
+    - Integrate ruff for linting (fast, modern linter)  
+    - Integrate black for code formatting  
+    - Run both tools locally via Makefile and in CI
+
+1.2 Multi-Environment CI Flow (dev → uat → prod)  
+    - Add GitHub Environments (dev, uat, prod)
+    - Enforce environment protection rules
+    - Separate automated dev runs from controlled uat/prod promotions
+    - Trigger deployments through release promotion rather than direct pushes
+
+1.3 Protected Deployment Approvals  
+    - Require mandatory pull request approvals before merging to main
+    - Enforce two approvals before deploying to UAT or PROD  
+    - Ensure at least one approval comes from a designated high-privilege approvers group  
+      (e.g., Senior Engineers, Tech Leads, Principal Engineers)
+    - Prevent direct commits or force pushes to main
+    - Protects production deployments and aligns with real-world governance controls
+
+1.4 Release-Based Deployment  
+    - Use GitHub Releases (e.g., v0.1.0) to trigger deployments
+    - Add semantic versioning (major.minor.patch)
+    - Deploy releases to UAT automatically
+    - Require additional approval to promote to PROD
+    - Ensures controlled, auditable deployment flow across environments
+
+1.5 Test Coverage in CI  
+    - Integrate coverage.py or pytest --cov
+    - Add minimum coverage thresholds (e.g., 90%)
+    - Publish coverage reports as pipeline artifacts
+    - Prevents regression in test quality
+
+------------------------------------------------------------
+2. APPLICATION & CODE IMPROVEMENTS
+------------------------------------------------------------
+
+2.1 CLI Interface  
+    - Add argparse-based CLI  
+      Examples:
+        --start 1  
+        --end 500  
+        --format json|csv  
+        --output file.txt  
+    - Makes the tool reusable and automatable in scripts/pipelines
+
+2.2 Proper Logging  
+    - Replace print() with Python’s logging module  
+    - Add log levels (INFO, DEBUG, ERROR)  
+    - Enable structured logging for future scaling
+
+2.3 Packaging  
+    - Add pyproject.toml 
+    - Make this installable via pip (e.g., pip install fizzbuzz)  
+    - Improves portability and reusability
+
+2.4 Streaming Version (Memory-Efficient)  
+    - Turn fizzbuzz_sequence into a generator  
+    - Useful for extremely large ranges
+
+2.5 Type Checking  
+    - Introduce mypy for static type checking  
+    - Enforce type hints across all modules  
+    - Catch type errors during development  
+    - Improves long-term maintainability
+
+------------------------------------------------------------
+3. TESTING ENHANCEMENTS
+------------------------------------------------------------
+
+3.1 Add More Edge Cases  
+    - Negative numbers  
+    - Very large ranges  
+    - start == end == special cases  
+    - Input validation for non-integer types
+
+3.2 CLI-Level Tests  
+    - Add CLI tests using pytest’s capsys  
+    - Validate printed output for various argument combinations  
+    - Ensures CLI behaviour is stable as project grows
+
+------------------------------------------------------------
+4. REPOSITORY QUALITY & TOOLING
+------------------------------------------------------------
+
+4.1 Extend Makefile  
+    - make format  
+    - make typecheck  
+    - make coverage  
+    - make clean
+
+4.2 Add a CONTRIBUTING.md  
+    - Document coding style, branching strategy, and PR guidelines
+
+4.3 Add pre-commit Hooks  
+    - Auto-linting and formatting before each commit  
+    - Prevents style issues from ever reaching the repo
+
+4.4 Add GitHub Templates  
+    - Issue templates  
+    - Pull request templates  
+    - Improves project collaboration standards
+
+------------------------------------------------------------
+5. ARCHITECTURE EVOLUTION (IF THIS WAS PART OF A LARGER PIPELINE)
+------------------------------------------------------------
+
+5.1 Add Optional Output Adapters  
+    - JSON, CSV, plain text  
+    - Write-to-file vs write-to-console  
+    - Future integration with data pipelines
+
+5.2 Observability  
+    - Add metrics (counts of Fizz, Buzz, FizzBuzz)  
+    - Expose stats for monitoring or dashboards
+
+5.3 Extract Core Logic Into Its Own Module or Service  
+    - Move business logic to a dedicated core.py module  
+    - Keep CLI interactions in cli.py  
+    - Enables direct reuse in Airflow, Lambdas, or FastAPI/Flask services  
+    - Encourages clean separation of concerns  
+    - Supports future microservice or API-based expansion
+
+------------------------------------------------------------
+
+All of these represent natural next steps to consider for production.
+
+------------------------------------------------------------
+END OF BACKLOG
+------------------------------------------------------------

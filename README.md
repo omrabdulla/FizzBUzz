@@ -14,12 +14,12 @@ A focus on **clarity**, **testability**, **modularity**, and **basic CI automati
 │   └── ci.yml/ # yaml file with code for the pipeline
 ├── src/
 │ └── fizzbuzz/
-│ ├── init.py
-│ └── fizzbuzz.py # Core implementation
+│   ├── init.py
+│   └── fizzbuzz.py # Core implementation
 ├── tests/
 │ └── test_fizzbuzz.py # Unit tests (parametrised + edge cases)
 ├── .gitignore # gitignore to pevent pushing uneeded files
-├── backlog_refienment.txt # What I would do with more time
+├── improvements.txt # What I would do with more time
 ├── Makefile # Convenience commands: run, test, lint, install
 ├── README.md # Project documentation
 ├── requirements.txt # Python dependencies
